@@ -1,2 +1,2 @@
 Website for asking your crush to be your valentine  
-They will surely like this ;) <3
+If you're having trouble asking him/her, this should do the job ;) <3
