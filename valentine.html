@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffebee;
+            overflow: hidden; /* Για να μην εμφανίζονται scrollbars αν το κουμπί βγει οριακά */
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            min-height: 50px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            /* position: absolute; /* Απαραίτητο για να μετακινείται ελεύθερα */
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message {
+            font-size: 1.5rem;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <h1 id="question">Will you be my valentine?</h1>
+        
+        <div class="buttons" id="btnWrapper">
+            <button id="noBtn">No</button>
+            <button id="yesBtn">Yes</button>
+        </div>
+
+        <div id="message" class="hidden">
+            Perfect, see you on the 14th! 😁❤️
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const message = document.getElementById('message');
+        const question = document.getElementById('question');
+        const btnWrapper = document.getElementById('btnWrapper');
+
+        const moveButton = () => {
+            noBtn.style.position = 'fixed';
+            // Υπολογισμός ορίων ώστε το κουμπί να μένει εντός οθόνης
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+            // Τυχαίες συντεταγμένες
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        };
+
+        // Όταν το ποντίκι πλησιάζει (mouseover)
+        noBtn.addEventListener('mouseover', moveButton);
+        
+        // Για touch συσκευές (αν κάποιος προσπαθήσει να το πατήσει στο κινητό)
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        // Όταν πατηθεί το Yes
+        yesBtn.addEventListener('click', () => {
+            question.classList.add('hidden');
+            btnWrapper.classList.add('hidden');
+            message.classList.remove('hidden');
+            
+            // Προαιρετικά: Σταματάμε το No κουμπί από το να φαίνεται
+            noBtn.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
