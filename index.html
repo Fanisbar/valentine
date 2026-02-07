@@ -14,7 +14,7 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffebee;
-            overflow: hidden; /* Για να μην εμφανίζονται scrollbars αν το κουμπί βγει οριακά */
+            overflow: hidden;
         }
 
         .container {
@@ -54,7 +54,6 @@
         #noBtn {
             background-color: #f44336;
             color: white;
-            /* position: absolute; /* Απαραίτητο για να μετακινείται ελεύθερα */
         }
 
         #yesBtn:hover {
@@ -96,12 +95,10 @@
 
         const moveButton = () => {
             noBtn.style.position = 'fixed';
-            // Υπολογισμός ορίων ώστε το κουμπί να μένει εντός οθόνης
             const padding = 20;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-            // Τυχαίες συντεταγμένες
             const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
             const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
@@ -109,22 +106,16 @@
             noBtn.style.top = randomY + 'px';
         };
 
-        // Όταν το ποντίκι πλησιάζει (mouseover)
         noBtn.addEventListener('mouseover', moveButton);
-        
-        // Για touch συσκευές (αν κάποιος προσπαθήσει να το πατήσει στο κινητό)
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             moveButton();
         });
 
-        // Όταν πατηθεί το Yes
         yesBtn.addEventListener('click', () => {
             question.classList.add('hidden');
             btnWrapper.classList.add('hidden');
             message.classList.remove('hidden');
-            
-            // Προαιρετικά: Σταματάμε το No κουμπί από το να φαίνεται
             noBtn.style.display = 'none';
         });
     </script>
